@@ -1,12 +1,21 @@
 # jenkins-pipeline-deploy-to-eks
 
-- deployment of AWS infrastructure as code with terraform
-- will create EKS cluster, roles and policies
-- installs necessary application like alb controller, prometheus and grafana
-- triggeres all build pipelines for the microservices which will then build and deploy the microservices
-## usage 
-### automated
-webhook triggers jenkins pipeline (see Jenkinsfile) on code commit/push
+# Project Name: End to end deployment of Applications to Kubernetes using a Jenkins CI/CD Pipeline
+
+# Steps for the project
+
+## 1. Create a Keypair that matches your keypair
+
+## 2. Create a Jenkins Server with all the dependencies, libraries and packagies needed.
+
+## 2. Once completed, access the Jenkins server and Set it up
+
+## 4. Run the jenkins-pipeline-deploy-to-eks to create Kubernetes Cluster, create deployments and Services
+
+## 5. Test that the application is running
+
+## 6. Destroy infrastructure
+
 ### manual
 - aws cli (configure with your access key and region)
 - clone repo
