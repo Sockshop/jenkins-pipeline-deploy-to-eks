@@ -30,7 +30,7 @@ pipeline {
                         def repo = repos[i]
                         
                         // Checkout the repository
-                        checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: repo.url]]])
+                        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: repo.url]]])
 
                         // Run the Jenkinsfile in the repository
                         build job: repo.jenkinsfile
@@ -38,7 +38,7 @@ pipeline {
                         // Wait for the current repository build to finish before proceeding to the next one
                         if (i < repos.size() - 1) {
                             stage("Wait for next repo") {
-                                sleep(time: 10, unit: 'SECONDS') // Adjust sleep time as needed
+                                sleep(time: 30, unit: 'SECONDS') // Adjust sleep time as needed
                             }
                         }
                     }
