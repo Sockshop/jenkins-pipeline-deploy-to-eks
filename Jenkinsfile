@@ -10,7 +10,7 @@ pipeline {
                 script {
                     // Define repositories and corresponding Jenkinsfiles
                     def repos = [
-                        [url: 'https://github.com/Sockshop/shipping-service', jenkinsfile: 'Jenkinsfile'],
+                        [url: 'https://github.com/Sockshop/shipping-service'], //jenkinsfile: 'Jenkinsfile'],
                         [url: 'https://github.com/Sockshop/carts-service.git', jenkinsfile: 'Jenkinsfile'],
                         [url: 'https://github.com/Sockshop/catalogue-service.git', jenkinsfile: 'Jenkinsfile'],
                         [url: 'https://github.com/Sockshop/order-db.git', jenkinsfile: 'Jenkinsfile'],
