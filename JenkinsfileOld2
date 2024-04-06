@@ -4,7 +4,7 @@ pipeline {
                 AWSSECRETKEY = credentials("AWS_SECRET_KEY")
                 AWSREGION = credentials("AWS_REGION")
                 EKSCLUSTERNAME = credentials("EKS_CLUSTER")
-                //NAMESPACE = credentials("NAMESPACE")
+                NAMESPACE = credentials("NAMESPACE")
     } 
 agent any
     stages {
@@ -87,7 +87,7 @@ agent any
     stage ('deploy all services') {
         // use sequentiel build steps
         steps {
-            build job: "ms-frontend-ci-cd", wait: true
+            build job: "payment-service", wait: true
 
             // dbs
             build job: "ms-catalogue-db-ci-cd", wait: true
@@ -103,7 +103,7 @@ agent any
             build job: "ms-payment-ci-cd", wait: true
             build job: "ms-queue-master-ci-cd", wait: true
             build job: "ms-rabbitmq-ci-cd", wait: true
-            build job: "ms-shipping-ci-cd", wait: true
+            build job: "shipping-service", wait: true
         }
     }
     stage ('destroy everything') {
