@@ -27,6 +27,7 @@ pipeline {
                 AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
                 AWSREGION = "eu-west-3"
                 EKSCLUSTERNAME = credentials('EKS_CLUSTER')
+                NAMESPACE = credentials('NAMESPACE')
             }
             steps {
                 // Create an Approval Button with a timeout of 15minutes.
@@ -36,7 +37,7 @@ pipeline {
                         }
                 script {
                     dir('microservice') {
-                        sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
+                        //sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
                         sh 'aws eks update-kubeconfig --name sock-shop-eks --region eu-west-3 --kubeconfig .kube/config'
                         // Check if the namespace exists
                             def namespaceExists = sh(script: "kubectl get namespace \$NAMESPACE", returnStatus: true)
