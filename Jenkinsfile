@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
-        stage("Deploy to EKS") {
+        /*stage("Deploy to EKS") {
             environment { // import Jenkin global variables 
                 //KUBECONFIG = credentials("EKS_CONFIG")  
                 AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
@@ -70,6 +70,6 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
     }
 }
