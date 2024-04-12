@@ -22,7 +22,7 @@ agent any
             }
         }
         stage ('AWS elb') {
-            steps {
+            /*steps {
                 sh 'rm -Rf .aws'
                 sh 'mkdir .aws'
                 sh 'aws configure set aws_access_key_id $AWSKEY'
@@ -37,11 +37,11 @@ agent any
                 sh 'sed -i "s+name:.*replace.*+name: ${NAMESPACE}+g" shop-namespace.yaml'
                 sh 'kubectl apply -f shop-namespace.yaml'
                 sh 'kubectl apply -f shop-ingress.yaml -n $NAMESPACE'
-            }
+            }*/
         }
         stage ('setup monitoring') {
             steps {
-                script {
+                /*script {
                     dir('monitoring') {
                         sh 'rm -Rf .aws'
                         sh 'mkdir .aws'
@@ -57,7 +57,7 @@ agent any
                         sh 'helm upgrade --install --timeout=15m prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --set grafana.service.type=NodePort --set promotheus.service.type=NodePort'
                         sh 'kubectl apply -f monitor-ingress.yaml'
                     }
-                }    
+                }*/    
             }
         }
         /*stage ('setup Velero') {
@@ -81,7 +81,7 @@ agent any
         }*/
         stage('Build') {
             // use sequentiel build steps
-            steps {
+            /*steps {
                 build job: "frontend-service", wait: true
 
                 // dbs
@@ -99,7 +99,7 @@ agent any
                 build job: "queue-master-service", wait: true
                 build job: "rabbitmq", wait: true
                 build job: "shipping-service", wait: true
-            }
+            }*/
         }
     }
 }
