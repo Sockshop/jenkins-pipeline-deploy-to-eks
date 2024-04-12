@@ -29,6 +29,7 @@ pipeline {
                 script {
                     dir('microservice') {
                         sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
+                        sh 'kubectl create namespace $NAMESPACE'
                         // Check if the namespace exists
                             def namespaceExists = sh(script: "kubectl get namespace \$NAMESPACE", returnStatus: true)
                             if (namespaceExists == 0) {
