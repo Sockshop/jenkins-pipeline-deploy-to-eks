@@ -21,6 +21,13 @@ pipeline {
             }
         }
         stage("Deploy to EKS") {
+            environment { // import Jenkin global variables 
+                //KUBECONFIG = credentials("EKS_CONFIG")  
+                AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+                AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+                AWSREGION = "eu-west-3"
+                EKSCLUSTERNAME = credentials('EKS_CLUSTER')
+            }
             steps {
                 // Create an Approval Button with a timeout of 15minutes.
                 // this require a manuel validation in order to deploy on production environment
@@ -30,7 +37,7 @@ pipeline {
                 script {
                     dir('microservice') {
                         sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
-                        sh 'kubectl create namespace $NAMESPACE'
+                        
                         // Check if the namespace exists
                             def namespaceExists = sh(script: "kubectl get namespace \$NAMESPACE", returnStatus: true)
                             if (namespaceExists == 0) {
