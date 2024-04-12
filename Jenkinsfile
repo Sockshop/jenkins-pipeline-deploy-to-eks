@@ -2,7 +2,8 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-        AWSREGION = credentials("AWS_REGION")
+        AWSREGION = "eu-west-3"
+        //AWSREGION = credentials("AWS_REGION")
         EKSCLUSTERNAME = credentials("EKS_CLUSTER")
         DOCKER_ID = credentials('DOCKER_ID')
         NAMESPACE = credentials('NAMESPACE')
