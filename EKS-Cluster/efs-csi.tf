@@ -1,5 +1,5 @@
 // preparation to deploy EFS for persistant storage
-/*
+
 // install EFS CSI driver with helm
 resource "helm_release" "aws_efs_csi_driver" {
   chart      = "aws-efs-csi-driver"
@@ -27,4 +27,3 @@ resource "helm_release" "aws_efs_csi_driver" {
     value = "efs-csi-controller-sa"
   }
 }
-*/

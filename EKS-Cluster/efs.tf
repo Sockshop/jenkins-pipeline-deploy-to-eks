@@ -1,5 +1,5 @@
 // preparation to deploy EFS for persistant storage
-/*
+
 resource "aws_security_group" "allow_nfs" {
   name        = "allow nfs for efs"
   description = "Allow NFS inbound traffic"
@@ -44,4 +44,3 @@ resource "aws_efs_mount_target" "ng_one_efs_mt_2" {
   subnet_id       = module.vpc.private_subnets[2]
   security_groups = [aws_security_group.allow_nfs.id]
 }
-*/
