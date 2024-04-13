@@ -9,13 +9,27 @@ pipeline {
         NAMESPACE = credentials('NAMESPACE')
     }
     stages {
-        stage("Create an EKS Cluster") {
-            steps {
-                script {
-                    dir('EKS-Cluster') {
-                        //sh "terraform init -reconfigure"
-                        sh "terraform init"
-                        sh "terraform destroy -auto-approve"
+        stage('Checkout SCM'){
+            steps{
+                script{
+                    //Generate  using pipeline syntax
+                }
+            }
+        }
+        stage('Initializing Terraform'){
+            steps{
+                script{
+                    dir('EKS'){
+                         sh 'terraform init'
+                    }
+                }
+            }
+        }
+        stage('Creating/Destroying an EKS cluster'){
+            steps{
+                script{
+                    dir('EKS'){
+                         sh 'terraform $action --auto-approve'
                     }
                 }
             }
@@ -37,8 +51,8 @@ pipeline {
                         }
                 script {
                     dir('microservice') {
-                        //sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
-                        sh 'aws eks update-kubeconfig --name sock-shop-eks --region eu-west-3 --kubeconfig .kube/config'
+                        sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
+                        //sh 'aws eks update-kubeconfig --name sock-shop-eks --region eu-west-3 --kubeconfig .kube/config'
                         // Check if the namespace exists
                             def namespaceExists = sh(script: "kubectl get namespace \$NAMESPACE", returnStatus: true)
                             if (namespaceExists == 0) {
