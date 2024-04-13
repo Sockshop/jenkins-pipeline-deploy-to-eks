@@ -5,8 +5,9 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWSREGION = "eu-west-3"
-        EKSCLUSTERNAME = credentials('EKS_CLUSTER')
+        EKSCLUSTERNAME = "sockshop-eks-cluster"
         NAMESPACE = credentials('NAMESPACE')
+        NAMESPACE = "sockshop"
     }
     parameters {
         choice(
