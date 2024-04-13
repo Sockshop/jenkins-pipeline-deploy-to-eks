@@ -25,7 +25,7 @@ pipeline {
                 }
             }
         }
-        stage('Creating/Destroying an EKS cluster'){
+        /*stage('Creating/Destroying an EKS cluster'){
             steps{
                 script {
                     def terraformAction = params.ACTION.toLowerCase()
@@ -40,7 +40,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
         stage("Deploy to EKS") {
             environment { // import Jenkin global variables 
                 //KUBECONFIG = credentials("EKS_CONFIG")  
