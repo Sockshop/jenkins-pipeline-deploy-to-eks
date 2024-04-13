@@ -21,6 +21,7 @@ pipeline {
                 script{
                     dir('EKS'){
                          sh 'terraform init'
+                         sh 'terraform destroy --auto-approve'
                     }
                 }
             }
