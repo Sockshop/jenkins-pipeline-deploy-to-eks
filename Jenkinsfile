@@ -9,13 +9,6 @@ pipeline {
         NAMESPACE = credentials('NAMESPACE')
     }
     stages {
-        stage('Checkout SCM'){
-            steps{
-                script{
-                    //Generate  using pipeline syntax
-                }
-            }
-        }
         stage('Initializing Terraform'){
             steps{
                 script{
@@ -29,7 +22,7 @@ pipeline {
             steps{
                 script{
                     dir('EKS'){
-                         sh 'terraform $action --auto-approve'
+                         sh 'terraform apply--auto-approve'
                     }
                 }
             }
