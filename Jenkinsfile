@@ -8,6 +8,13 @@ pipeline {
         EKSCLUSTERNAME = credentials('EKS_CLUSTER')
         NAMESPACE = credentials('NAMESPACE')
     }
+    parameters {
+        choice(
+            name: 'ACTION',
+            choices: ['Create', 'Destroy'],
+            description: 'Choose whether to create or destroy the EKS cluster.'
+        )
+    }
     stages {
         stage('Initializing Terraform'){
             steps{
@@ -20,9 +27,16 @@ pipeline {
         }
         stage('Creating/Destroying an EKS cluster'){
             steps{
-                script{
-                    dir('EKS'){
-                         sh 'terraform apply--auto-approve'
+                script {
+                    def terraformAction = params.ACTION.toLowerCase()
+                    dir('EKS') {
+                        if (terraformAction == 'create') {
+                            sh 'terraform apply --auto-approve'
+                        } else if (terraformAction == 'destroy') {
+                            sh 'terraform destroy --auto-approve'
+                        } else {
+                            error "Invalid action provided. Please choose either 'Create' or 'Destroy'."
+                        }
                     }
                 }
             }
