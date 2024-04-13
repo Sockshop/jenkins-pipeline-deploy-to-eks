@@ -21,7 +21,6 @@ pipeline {
                 script{
                     dir('EKS'){
                          sh 'terraform init'
-                         sh 'terraform destroy --auto-approve'
                     }
                 }
             }
@@ -60,7 +59,7 @@ pipeline {
                 script {
                     dir('microservice') {
                         sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
-                        //sh 'aws eks update-kubeconfig --name sock-shop-eks --region eu-west-3 --kubeconfig .kube/config'
+                        //sh 'aws eks update-kubeconfig --name sockshop-eks-cluster --region eu-west-3 --kubeconfig .kube/config'
                         // Check if the namespace exists
                             def namespaceExists = sh(script: "kubectl get namespace \$NAMESPACE", returnStatus: true)
                             if (namespaceExists == 0) {
