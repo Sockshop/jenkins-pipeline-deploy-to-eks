@@ -15,7 +15,7 @@ pipeline {
                     dir('EKS-Cluster') {
                         //sh "terraform init -reconfigure"
                         sh "terraform init"
-                        sh "terraform destroy -auto-approve"
+                        sh "terraform apply -auto-approve"
                     }
                 }
             }
