@@ -25,7 +25,7 @@ pipeline {
                 }
             }
         }
-        /*stage('Creating/Destroying an EKS cluster'){
+        stage('Creating/Destroying an EKS cluster'){
             steps{
                 script {
                     def terraformAction = params.ACTION.toLowerCase()
@@ -40,10 +40,9 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
         stage("Deploy to EKS") {
             environment { // import Jenkin global variables 
-                //KUBECONFIG = credentials("EKS_CONFIG")  
                 AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
                 AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
                 AWSREGION = "eu-west-3"
