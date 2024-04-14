@@ -17,8 +17,7 @@ provider "kubernetes" {
       var.cluster_name,
       "--region",
       var.region,
-      "--kubeconfig",
-      var.kubeconfig_path      
+      "--kubeconfig"      
     ]
   }
 }
@@ -38,8 +37,7 @@ provider "helm" {
       var.cluster_name,
       "--region",
       var.region,
-      "--kubeconfig",
-      var.kubeconfig_path      
+      "--kubeconfig"     
     ]
     }
   }

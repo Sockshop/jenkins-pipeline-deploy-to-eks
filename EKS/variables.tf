@@ -26,7 +26,3 @@ variable "region" {
     description = "AWS Region"
     type        = string
 }
-variable "kubeconfig_path" {
-   description = "path to kubeconfig"
-   type        = string
-}

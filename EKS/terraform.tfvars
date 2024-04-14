@@ -4,4 +4,3 @@ private_subnets = ["192.0.4.0/24", "192.0.5.0/24", "192.0.6.0/24"]
 instance_types = ["t2.medium"]
 cluster_name               = "sockshop-eks-cluster"
 region                     = "eu-west-3"
-kubeconfig_path = "~/.kube/config"
