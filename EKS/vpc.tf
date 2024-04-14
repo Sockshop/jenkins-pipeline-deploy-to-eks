@@ -1,7 +1,7 @@
 # define the vpc
 module "vpc" {
   source          = "terraform-aws-modules/vpc/aws"
-  version         = "5.1.0"
+  version         = "5.0.0"
   
   name = "sockshop-eks_cluster_vpc"
   cidr = var.vpc_cidr
@@ -24,6 +24,6 @@ module "vpc" {
 
   private_subnet_tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/private_elb"           = 1
+    "kubernetes.io/role/internal-elb"           = 1
   }
 }

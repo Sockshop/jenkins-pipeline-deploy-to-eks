@@ -21,7 +21,9 @@ pipeline {
             steps{
                 script{
                     dir('EKS'){
-                         sh 'terraform init --reconfigure'
+                         sh 'terraform init'
+                         //sh 'terraform init --reconfigure'
+                         sh 'terraform plan'
                     }
                 }
             }
