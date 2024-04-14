@@ -1,7 +1,7 @@
 # define the vpc
 module "vpc" {
   source          = "terraform-aws-modules/vpc/aws"
-  version         = "5.0.0"
+  version         = "5.1.0"
   
   name = "sockshop-eks_cluster_vpc"
   cidr = var.vpc_cidr
