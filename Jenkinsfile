@@ -96,7 +96,7 @@ pipeline {
                         sh 'kubectl apply -f ./payment-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./shipping-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ../ingress/manifests -n $NAMESPACE --kubeconfig .kube/config'
-                        sh 'kubectl apply -f ../manifests/alb-sa.yaml'
+                        sh 'kubectl apply -f ../manifests/alb-sa.yaml -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'sleep 30'
                         //sh 'kubectl get ingress -n $NAMESPACE'
                         sh 'kubectl get pods -n $NAMESPACE'
