@@ -21,20 +21,20 @@ agent any
                 }
             }
         }
-        stage("Deploy to EKS") {
+        /*stage("Deploy to EKS") {
             steps {
-                /*script {
+                script {
                     dir('kubernetes') {
                         sh "aws eks update-kubeconfig --name sockshop-eks-cluster "
                         sh "kubectl apply -f nginx-deployment.yaml"
                         sh "kubectl apply -f nginx-service.yaml"
                     }
-                }*/
+                }
             }
-        }
-        stage ('AWS elb') {
+        }*/
+        /*stage ('AWS elb') {
             steps {
-                /*sh 'rm -Rf .aws'
+                sh 'rm -Rf .aws'
                 sh 'mkdir .aws'
                 sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
                 sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
@@ -48,12 +48,12 @@ agent any
                 sh 'sed -i "s+name:.*replace.*+name: ${NAMESPACE}+g" shop-namespace.yaml'
                 sh 'kubectl apply -f shop-namespace.yaml'
                 sh 'kubectl apply -f shop-ingress.yaml -n $NAMESPACE' 
-                */
+                
             }
-        }
-        stage ('setup monitoring') {
+        }*/
+        /*stage ('setup monitoring') {
             steps {
-                /*script {
+                script {
                     dir('monitoring') {
                         sh 'rm -Rf .aws'
                         sh 'mkdir .aws'
@@ -69,9 +69,9 @@ agent any
                         sh 'helm upgrade --install --timeout=15m prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --set grafana.service.type=NodePort --set promotheus.service.type=NodePort'
                         sh 'kubectl apply -f monitor-ingress.yaml'
                     }
-                }*/    
+                }    
             }
-        }
+        }*/
         /*stage ('setup Velero') {
             steps {
                 scripts {
@@ -91,9 +91,9 @@ agent any
                 }        
             }
         }*/
-        stage('Build') {
+        /*stage('Build') {
             // use sequentiel build steps
-            /*steps {
+            steps {
                 build job: "frontend-service", wait: true
 
                 // dbs
@@ -111,7 +111,7 @@ agent any
                 build job: "queue-master-service", wait: true
                 build job: "rabbitmq", wait: true
                 build job: "shipping-service", wait: true
-            }*/
-        }
+            }
+        }*/
     }
 }
