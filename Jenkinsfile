@@ -82,7 +82,7 @@ pipeline {
                         sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
                         sh 'aws configure set region $AWSREGION'
                         sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
-                        sh 'kubectl apply -f ./front-end/manifests -n $NAMESPACE'
+                        //sh 'kubectl apply -f ./front-end/manifests -n $NAMESPACE'
                         sh 'kubectl apply -f ./catalogue-db/manifests -n $NAMESPACE'
                         sh 'kubectl apply -f ./catalogue/manifests -n $NAMESPACE'
                         sh 'kubectl apply -f ./carts-db/manifests -n $NAMESPACE'
