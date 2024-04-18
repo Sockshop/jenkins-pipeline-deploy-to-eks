@@ -82,16 +82,6 @@ pipeline {
                         sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
                         sh 'aws configure set region $AWSREGION'
                         sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
-                        // Check if the namespace exists
-                            def namespaceExists = sh(script: "kubectl get namespace \$NAMESPACE", returnStatus: true)
-                            if (namespaceExists == 0) {
-                                echo "Namespace \$NAMESPACE already exists."
-                            } else {
-                                // Create the namespace
-                                sh 'kubectl create namespace \$NAMESPACE'
-                                echo "Namespace \$NAMESPACE created."
-                            }
-                    
                         sh 'kubectl apply -f ./frontend-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./catalogue-db/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./catalogue-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
