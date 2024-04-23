@@ -6,7 +6,7 @@ pipeline {
         AWSREGION = credentials("AWSREGION")
         EKSCLUSTERNAME = credentials("EKS_CLUSTER")
         DOCKER_ID = credentials('DOCKER_ID')
-        NAMESPACE = credentials('NAMESPACE')
+        NAMESPACE = "sockshop"
     }
 agent any
     stages {
