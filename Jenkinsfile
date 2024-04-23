@@ -60,18 +60,16 @@ pipeline {
                         }
                 script {
                     dir('microservice') {
-                        //sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
-                        //sh 'aws eks update-kubeconfig --name sockshop-eks-cluster --region eu-west-3 --kubeconfig .kube/config'
-                        /*// Check if the namespace exists
-                            def namespaceExists = sh(script: "kubectl get namespace \$NAMESPACE", returnStatus: true)
-                            if (namespaceExists == 0) {
-                                echo "Namespace \$NAMESPACE already exists."
-                            } else {
-                                // Create the namespace
-                                sh 'kubectl create namespace \$NAMESPACE'
-                                echo "Namespace \$NAMESPACE created."
-                            }
-                        */
+                        sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
+                        // Check if the namespace exists
+                        def namespaceExists = sh(script: "kubectl get namespace \$NAMESPACE", returnStatus: true)
+                        if (namespaceExists == 0) {
+                            echo "Namespace \$NAMESPACE already exists."
+                        } else {
+                            // Create the namespace
+                            sh 'kubectl create namespace \$NAMESPACE'
+                            echo "Namespace \$NAMESPACE created."
+                        }
                         sh 'rm -Rf .kube'
                         sh 'mkdir .kube'
                         sh 'touch .kube/config'
