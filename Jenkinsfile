@@ -5,9 +5,12 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWSREGION = "eu-west-3"
-        EKSCLUSTERNAME = "sockshop-eks-cluster"
-        //NAMESPACE = credentials('NAMESPACE')
-        NAMESPACE = "sockshop"
+        DB_USERNAME =   credentials('DB_USERNAME')
+        DB_PASSWORD = credentials('DB_PASSWORD')
+        GRAFANA_PASSWORD = credentials('GRAFANA_PASSWORD')
+        EKSCLUSTERNAME = credentials('EKS_CLUSTER')
+        NAMESPACE = credentials('NAMESPACE')
+        //NAMESPACE = "sockshop"
     }
     parameters {
         choice(
@@ -17,22 +20,22 @@ pipeline {
         )
     }
     stages {
-        /*stage('Initializing Terraform'){
+        stage('Initializing Terraform'){
             steps{
                 script{
-                    dir('EKS'){
+                    dir('iaac'){
                          sh 'terraform init'
                          //sh 'terraform init -reconfigure'
-                         sh 'terraform plan'
+                         //sh 'terraform plan'
                     }
                 }
             }
-        }*/
-        /*stage('Creating/Destroying an EKS cluster'){
+        }
+        stage('Creating/Destroying an EKS cluster/monitoring/rds'){
             steps{
                 script {
                     def terraformAction = params.ACTION.toLowerCase()
-                    dir('EKS') {
+                    dir('iaac') {
                         if (terraformAction == 'create') {
                             sh 'terraform apply --auto-approve'
                         } else if (terraformAction == 'destroy') {
@@ -43,7 +46,7 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
         stage("Deploy to EKS") {
             environment { // import Jenkin global variables 
                 AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
@@ -60,9 +63,9 @@ pipeline {
                         }
                 script {
                     dir('microservice') {
-                        sh 'aws eks update-kubeconfig --name petclinic-eks --region eu-west-3 --kubeconfig .kube/config'
+                        sh 'aws eks update-kubeconfig --name sockshop-eks --region eu-west-3 --kubeconfig .kube/config'
                         //sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
-                        //sh 'aws eks update-kubeconfig --name sockshop-eks-cluster --region eu-west-3 --kubeconfig .kube/config'
+                        //sh 'aws eks update-kubeconfig --name sockshop-eks --region eu-west-3 --kubeconfig .kube/config'
                         sh 'rm -Rf .kube'
                         sh 'mkdir .kube'
                         sh 'touch .kube/config'
@@ -72,7 +75,7 @@ pipeline {
                         sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
                         sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
                         sh 'aws configure set region $AWSREGION'
-                        sh 'aws eks update-kubeconfig --name petclinic-eks --region eu-west-3 --kubeconfig .kube/config'
+                        sh 'aws eks update-kubeconfig --name sockshop-eks --region eu-west-3 --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./frontend-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./catalogue-db/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./catalogue-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
