@@ -72,7 +72,7 @@ pipeline {
                         sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
                         sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
                         sh 'aws configure set region $AWSREGION'
-                        sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
+                        sh 'aws eks update-kubeconfig --name petclinic-eks --region eu-west-3 --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./frontend-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./catalogue-db/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./catalogue-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
