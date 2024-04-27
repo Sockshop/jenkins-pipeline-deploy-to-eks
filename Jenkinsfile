@@ -17,7 +17,7 @@ pipeline {
         )
     }
     stages {
-        stage('Initializing Terraform'){
+        /*stage('Initializing Terraform'){
             steps{
                 script{
                     dir('EKS'){
@@ -27,8 +27,8 @@ pipeline {
                     }
                 }
             }
-        }
-        stage('Creating/Destroying an EKS cluster'){
+        }*/
+        /*stage('Creating/Destroying an EKS cluster'){
             steps{
                 script {
                     def terraformAction = params.ACTION.toLowerCase()
@@ -43,7 +43,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
         stage("Deploy to EKS") {
             environment { // import Jenkin global variables 
                 AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
@@ -60,8 +60,9 @@ pipeline {
                         }
                 script {
                     dir('microservice') {
+                        sh 'aws eks update-kubeconfig --name petclinic-eks --region eu-west-3 --kubeconfig .kube/config'
                         //sh 'aws eks update-kubeconfig --name $EKSCLUSTERNAME --region $AWSREGION --kubeconfig .kube/config'
-                        sh 'aws eks update-kubeconfig --name sockshop-eks-cluster --region eu-west-3 --kubeconfig .kube/config'
+                        //sh 'aws eks update-kubeconfig --name sockshop-eks-cluster --region eu-west-3 --kubeconfig .kube/config'
                         sh 'rm -Rf .kube'
                         sh 'mkdir .kube'
                         sh 'touch .kube/config'
@@ -85,7 +86,7 @@ pipeline {
                         sh 'kubectl apply -f ./orders-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./payment-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./shipping-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
-                        sh 'kubectl apply -f ../ingress/manifests -n $NAMESPACE --kubeconfig .kube/config'
+                        //sh 'kubectl apply -f ../ingress/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         //sh 'kubectl apply -f ../service-account.yaml --namespace=kube-system --kubeconfig .kube/config'
                         sh 'sleep 30'
                         //sh 'kubectl get ingress -n $NAMESPACE'
