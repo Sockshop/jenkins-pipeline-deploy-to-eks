@@ -37,18 +37,22 @@ pipeline {
                     def terraformAction = params.ACTION.toLowerCase()
                     dir('iaac') {
                         if (terraformAction == 'create') {
-                            sh 'terraform apply --auto-approve'
-                        } else if (terraformAction == 'destroy') {
-                            sh 'terraform destroy --auto-approve'
-                        } else {
-                            error "Invalid action provided. Please choose either 'Create' or 'Destroy'."
-                        }
-                        sh """
-                        terraform apply -auto-approve \
+                            sh """
+                    terraform apply -auto-approve \
                         -var "DB_USERNAME=\${DB_USERNAME}" \
                         -var "DB_PASSWORD=\${DB_PASSWORD}" \
                         -var "GRAFANA_PASSWORD=\${GRAFANA_PASSWORD}"
-                        """
+                    """
+                        } else if (terraformAction == 'destroy') {
+                            sh """
+                    terraform destroy -auto-approve \
+                        -var "DB_USERNAME=\${DB_USERNAME}" \
+                        -var "DB_PASSWORD=\${DB_PASSWORD}" \
+                        -var "GRAFANA_PASSWORD=\${GRAFANA_PASSWORD}"
+                    """
+                        } else {
+                            error "Invalid action provided. Please choose either 'Create' or 'Destroy'."
+                        }
                     }
                 }
             }
