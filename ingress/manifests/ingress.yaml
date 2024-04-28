@@ -8,6 +8,7 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     kubernetes.io/ingress.class: "alb"
+
     # health check settings
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
     alb.ingress.kubernetes.io/healthcheck-port: traffic-port
@@ -17,17 +18,9 @@ metadata:
     alb.ingress.kubernetes.io/success-codes: '200'
     alb.ingress.kubernetes.io/healthy-threshold-count: '2'
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
-# ACM certificate settings
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-3:518551558056:certificate/d0c0bd6e-925f-44e4-aee3-e30073e9cf57
 spec:
-  tls:
-    - hosts:
-        - cynomart.site
-      secretName: acm-cert # This is a placeholder and not used since ACM manages the certificate aws-load-balancer-tls
   rules:
-    - host: cynomart.site
-      http:
+    -  http:
         paths:
           - path: /
             pathType: Prefix
