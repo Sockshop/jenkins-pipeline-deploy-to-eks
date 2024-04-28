@@ -1,0 +1,3 @@
+DB_USERNAME =   credentials("DB_USERNAME")
+DB_PASSWORD = credentials("DB_PASSWORD")
+GRAFANA_PASSWORD = credentials("GRAFANA_PASSWORD")
