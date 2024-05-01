@@ -24,7 +24,7 @@ metadata:
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
 spec:
   rules:
-    -  host: cynomart.site
+    #-  host: cynomart.site
     -  http:
         paths:
           - path: /
