@@ -8,9 +8,9 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     kubernetes.io/ingress.class: "alb"
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":8079}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-3:518551558056:certificate/d0c0bd6e-925f-44e4-aee3-e30073e9cf57
-    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
+    #alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":8079}]'
+    #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-3:518551558056:certificate/d0c0bd6e-925f-44e4-aee3-e30073e9cf57
+    #alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS13-1-2-2021-06
     
 
     # health check settings
