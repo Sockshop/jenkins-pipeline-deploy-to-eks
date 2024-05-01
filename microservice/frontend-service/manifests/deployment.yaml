@@ -16,6 +16,10 @@ spec:
       labels:
         app: frontend-deployment
     spec:
+      initContainers:
+        - name: init-db
+          image: busybox:1.31
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";']      
       containers:
         - name: frontend
           image: kentronic/front-end:latest
@@ -28,7 +32,32 @@ spec:
           resources:
             limits:
               cpu: 300m
-              memory: 300Mi
-            requests:
-              cpu: 100m
-              memory: 100Mi        
+              memory: 300Mi         
+          env:
+            - name: DB_HOSTNAME
+              value: "mysql"            
+            - name: DB_PORT
+              value: "3306"            
+            - name: db_name 
+              value: "sockshopdb"            
+            - name: DB_USERNAME
+              value: "sockshop24"        # RDS DB Username is dbadmin     
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-db-password
+                  key: db-password           
+          livenessProbe:
+            exec:
+              command: 
+                - /bin/sh
+                - -c 
+                - nc -z localhost 8079
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /usermgmt/health-status
+              port: 8079
+            initialDelaySeconds: 60
+            periodSeconds: 10          
