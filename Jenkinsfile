@@ -86,8 +86,8 @@ pipeline {
                         sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
                         sh 'aws configure set region $AWSREGION'
                         sh 'aws eks update-kubeconfig --name sockshop-eks --region eu-west-3 --kubeconfig .kube/config'
-                        sh 'kubectl apply -f ../ingress/manifests/rbac.yaml -n $NAMESPACE --kubeconfig .kube/config'
-                        sh 'kubectl apply -f ../ingress/manifests/shop-namespace.yaml -n $NAMESPACE --kubeconfig .kube/config'
+                        //sh 'kubectl apply -f ../ingress/manifests/rbac.yaml -n $NAMESPACE --kubeconfig .kube/config'
+                        //sh 'kubectl apply -f ../ingress/manifests/shop-namespace.yaml -n $NAMESPACE --kubeconfig .kube/config'
 
                         sh 'kubectl apply -f ./frontend-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./catalogue-db/manifests -n $NAMESPACE --kubeconfig .kube/config'
