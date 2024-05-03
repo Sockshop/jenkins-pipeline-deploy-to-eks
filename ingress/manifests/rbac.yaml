@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: ec2-user
+  name: sockshop
 rules:
   - apiGroups: [""]
     resources: ["*"]
@@ -11,18 +11,18 @@ rules:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: ec2-user
+  name: sockshop
   namespace: sockshop
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: ec2-user
+  name: sockshop
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: ec2-user
+  name: sockshop
 subjects:
 - kind: ServiceAccount
-  name: ec2-user
+  name: sockshop
   namespace: sockshop
