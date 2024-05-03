@@ -25,10 +25,6 @@ spec:
           image: kentronic/front-end:latest
           ports:
             - containerPort: 8079
-          securityContext:
-            capabilities:
-              drop: 
-                - all
           resources:
             limits:
               cpu: 300m
@@ -57,7 +53,7 @@ spec:
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /usermgmt/health-status
+              path: /front-end/health-status
               port: 8079
             initialDelaySeconds: 60
             periodSeconds: 10          
