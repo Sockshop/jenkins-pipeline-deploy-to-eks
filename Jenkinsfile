@@ -9,7 +9,7 @@ pipeline {
         DB_PASSWORD = credentials('DB_PASSWORD')
         GRAFANA_PASSWORD = credentials('GRAFANA_PASSWORD')
         EKSCLUSTERNAME = credentials('EKS_CLUSTER')
-        NAMESPACE = credentials('NAMESPACE')
+        //NAMESPACE = credentials('NAMESPACE')
         //NAMESPACE = "sockshop"
     }
     parameters {
@@ -63,7 +63,7 @@ pipeline {
                 AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
                 AWSREGION = "eu-west-3"
                 EKSCLUSTERNAME = credentials('EKS_CLUSTER')
-                NAMESPACE = 'sockshop'
+                //NAMESPACE = 'sockshop'
             }
             steps {
                 // Create an Approval Button with a timeout of 15minutes.
