@@ -24,7 +24,7 @@ pipeline {
             steps{
                 script{
                     dir('iaac'){
-                         sh 'terraform init'
+                         sh 'terraform init -upgrade'
                          //sh 'terraform init -reconfigure'
                          //sh 'terraform plan'
                     }
