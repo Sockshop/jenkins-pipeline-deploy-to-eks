@@ -88,14 +88,14 @@ pipeline {
                         sh 'aws eks update-kubeconfig --name sockshop-eks --region eu-west-3 --kubeconfig .kube/config'
                         //sh 'kubectl apply -f ../ingress/manifests/rbac.yaml -n $NAMESPACE --kubeconfig .kube/config'
                         //sh 'kubectl apply -f ../ingress/manifests/shop-namespace.yaml -n $NAMESPACE --kubeconfig .kube/config'
-
+                        build job: "rabbitmq", wait: true
                         sh 'kubectl apply -f ./frontend-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./catalogue-db/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./catalogue-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./carts-db/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./carts-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./queue-master-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
-                        sh 'kubectl apply -f ./rabbitmq/manifests -n $NAMESPACE --kubeconfig .kube/config'
+                        //sh 'kubectl apply -f ./rabbitmq/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./user-db/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./user-service/manifests -n $NAMESPACE --kubeconfig .kube/config'
                         sh 'kubectl apply -f ./order-db/manifests -n $NAMESPACE --kubeconfig .kube/config'
